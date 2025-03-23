@@ -8,6 +8,7 @@ import lombok.Getter;
 public enum UserType {
 
     CHILD("아동"),
+    ADULT("성인"),
     SENIOR("고령자"),
     DISABLED("장애인")
     ;
