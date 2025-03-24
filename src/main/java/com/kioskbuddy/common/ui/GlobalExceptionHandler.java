@@ -34,6 +34,6 @@ public class GlobalExceptionHandler {
     public ErrorDetails handleException(Exception e) {
         log.error(e.getMessage(), e);
 
-        return new ErrorDetails(ErrorCode.INTERNAL_SEVER_ERROR);
+        return new ErrorDetails(ErrorCode.INTERNAL_SERVER_ERROR);
     }
 }

@@ -13,7 +13,7 @@ public enum ErrorCode {
     INVALID_PASSWORD(400, "비밀번호는 최소 8자 이상이며, 영문과 숫자를 포함해야 합니다."),
 
     // Server
-    INTERNAL_SEVER_ERROR(500, "서버 에러가 발생했습니다. 관리자에게 문의 바랍니다.");
+    INTERNAL_SERVER_ERROR(500, "서버 에러가 발생했습니다. 관리자에게 문의 바랍니다.");
 
     private final Integer code;
     private final String message;
