@@ -1,7 +1,6 @@
 package com.kioskbuddy.user.domain;
 
-import com.kioskbuddy.common.exception.user.InvalidPasswordException;
-import lombok.AllArgsConstructor;
+import com.kioskbuddy.common.util.PasswordValidator;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -9,35 +8,29 @@ import java.util.Objects;
 
 @Getter
 @Builder
-@AllArgsConstructor
 public class User {
 
     private final Long userId;
     private final UserInfo userInfo;
     private final String password;
 
-    private void validateUserId(Long userId) {
-        if (userId == null) {
-            throw new NullPointerException();
-        }
-    }
-
-    private void validateUserInfo(UserInfo userInfo) {
+    private User(Long userId, UserInfo userInfo, String password) {
         if (userInfo == null) {
-            throw new NullPointerException();
+            throw new IllegalArgumentException("유저 정보는 필수 입력 항목입니다.");
         }
+        if (password == null || password.isBlank()) {
+            throw new IllegalArgumentException("비밀번호는 필수 입력 항목입니다.");
+        }
+
+        PasswordValidator.validate(password);
+
+        this.userId = userId;
+        this.userInfo = userInfo;
+        this.password = password;
     }
 
-    private void validatePassword(String password) {
-        if (password == null || password.isBlank()) {
-            throw new NullPointerException("비밀번호는 필수 입력 항목입니다.");
-        }
-        if (password.length() < 8) {
-            throw new InvalidPasswordException();
-        }
-        if (!password.matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$")) {
-            throw new InvalidPasswordException();
-        }
+    public static User createUser(Long userId, UserInfo userInfo, String password) {
+        return new User(userId, userInfo, password);
     }
 
     @Override
