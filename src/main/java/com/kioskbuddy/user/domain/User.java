@@ -12,9 +12,9 @@ import java.util.Objects;
 @AllArgsConstructor
 public class User {
 
-    private Long userId;
-    private UserInfo userInfo;
-    private String password;
+    private final Long userId;
+    private final UserInfo userInfo;
+    private final String password;
 
     private void validateUserId(Long userId) {
         if (userId == null) {

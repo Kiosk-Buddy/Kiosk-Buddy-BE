@@ -8,9 +8,9 @@ import lombok.Getter;
 @Getter
 public class UserInfo {
 
-    private Integer age;
-    private UserType userType;
-    private String phoneNumber;
+    private final Integer age;
+    private final UserType userType;
+    private final String phoneNumber;
 
     public UserInfo(Integer age, UserType userType, String phoneNumber) {
         if (age == null || userType == null || phoneNumber == null) {
