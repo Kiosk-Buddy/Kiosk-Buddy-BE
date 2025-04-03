@@ -1,20 +1,30 @@
 package com.kioskbuddy.user.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kioskbuddy.common.util.PasswordValidator;
-import lombok.Builder;
-import lombok.Getter;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.Objects;
 
 @Getter
-@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED) // JPA 기본 생성자
+@Entity
+@Table(name = "users")
 public class User {
 
-    private final Long userId;
-    private final UserInfo userInfo;
-    private final String password;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // 자동 증가 키
+    private Long userId;
 
-    private User(Long userId, UserInfo userInfo, String password) {
+    @Embedded // UserInfo가 Embeddable이라면 사용
+    private UserInfo userInfo;
+
+    @JsonIgnore
+    private String password;
+
+    @Builder
+    public User(Long userId, UserInfo userInfo, String password) {
         if (userInfo == null) {
             throw new IllegalArgumentException("유저 정보는 필수 입력 항목입니다.");
         }
