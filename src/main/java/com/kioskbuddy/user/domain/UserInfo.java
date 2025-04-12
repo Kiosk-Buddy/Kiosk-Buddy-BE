@@ -1,7 +1,5 @@
 package com.kioskbuddy.user.domain;
 
-import com.kioskbuddy.common.exception.user.InvalidAgeException;
-import com.kioskbuddy.common.exception.user.InvalidPhoneNumberException;
 import com.kioskbuddy.common.util.PhoneNumberValidator;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
@@ -27,20 +25,24 @@ public class UserInfo {
     private String phoneNumber;
 
     public UserInfo(Integer age, UserType userType, String phoneNumber) {
+        validate(age, userType, phoneNumber);
+
+        this.age = age;
+        this.userType = userType;
+        this.phoneNumber = phoneNumber;
+    }
+
+    private void validate(Integer age, UserType userType, String phoneNumber) {
         if (age == null || userType == null || phoneNumber == null) {
             throw new NullPointerException("유저 정보는 필수 입력 항목입니다.");
         }
 
         if (age <= 0 || age >= 100) {
-            throw new InvalidAgeException();
+            throw new IllegalArgumentException("유효하지 않은 나이입니다.");
         }
 
         if (!PhoneNumberValidator.isValidPhoneNumber(phoneNumber)) {
-            throw new InvalidPhoneNumberException();
+            throw new IllegalArgumentException("유효하지 않은 전화번호입니다.");
         }
-
-        this.age = age;
-        this.userType = userType;
-        this.phoneNumber = phoneNumber;
     }
 }

@@ -4,12 +4,12 @@ import com.kioskbuddy.user.domain.User;
 
 public record UserRegisterResponse(Long userId, String userType, Integer age, String phoneNumber) {
 
-    public UserRegisterResponse(User user) {
-        this(
+    public static UserRegisterResponse userRegisterResponse(User user) {
+        return new UserRegisterResponse(
                 user.getUserId(),
-                user.getUserInfo().getUserType().name(),
+                user.getUserInfo().getUserType().getDescription(),
                 user.getUserInfo().getAge(),
-                user.getPassword()
+                user.getUserInfo().getPhoneNumber()
         );
     }
 }

@@ -1,10 +1,10 @@
 package com.kioskbuddy.user.domain;
 
-import com.kioskbuddy.common.exception.user.InvalidPasswordException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class UserTest {
 
@@ -55,7 +55,7 @@ class UserTest {
 
         // when & then
         assertThatThrownBy(() -> User.createUser(1L, userInfo, "A1b2c3"))
-                .isInstanceOf(InvalidPasswordException.class);
+                .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
@@ -66,10 +66,10 @@ class UserTest {
 
         // when & then
         assertThatThrownBy(() -> User.createUser(1L, userInfo, "abcdefgh"))
-                .isInstanceOf(InvalidPasswordException.class);
+                .isInstanceOf(IllegalArgumentException.class);
 
         assertThatThrownBy(() -> User.createUser(1L, userInfo, "12345678"))
-                .isInstanceOf(InvalidPasswordException.class);
+                .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test

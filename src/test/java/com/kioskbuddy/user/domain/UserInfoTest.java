@@ -1,7 +1,5 @@
 package com.kioskbuddy.user.domain;
 
-import com.kioskbuddy.common.exception.user.InvalidAgeException;
-import com.kioskbuddy.common.exception.user.InvalidPhoneNumberException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -43,7 +41,7 @@ class UserInfoTest {
             "101, ADULT, 010-1234-5678"
     })
     void createUserInfo_WithInvalidAge_ShouldThrowInvalidAgeException(Integer age, UserType userType, String phoneNumber) {
-        assertThrows(InvalidAgeException.class, () -> new UserInfo(age, userType, phoneNumber));
+        assertThrows(IllegalArgumentException.class, () -> new UserInfo(age, userType, phoneNumber));
     }
 
     @DisplayName("잘못된 전화번호 형식으로 UserInfo를 생성하여 InvalidPhoneNumberException 발생.")
@@ -55,6 +53,6 @@ class UserInfoTest {
             "25, ADULT, 010-1234-567"
     })
     void createUserInfo_WithInvalidPhoneNumber_ShouldThrowInvalidPhoneNumberException(Integer age, UserType userType, String phoneNumber) {
-        assertThrows(InvalidPhoneNumberException.class, () -> new UserInfo(age, userType, phoneNumber));
+        assertThrows(IllegalArgumentException.class, () -> new UserInfo(age, userType, phoneNumber));
     }
 }

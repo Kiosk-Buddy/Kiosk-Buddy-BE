@@ -8,13 +8,13 @@ import lombok.*;
 import java.util.Objects;
 
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED) // JPA 기본 생성자
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "users")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // 자동 증가 키
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
     @Embedded // UserInfo가 Embeddable이라면 사용
@@ -31,8 +31,6 @@ public class User {
         if (password == null || password.isBlank()) {
             throw new IllegalArgumentException("비밀번호는 필수 입력 항목입니다.");
         }
-
-        PasswordValidator.validate(password);
 
         this.userId = userId;
         this.userInfo = userInfo;

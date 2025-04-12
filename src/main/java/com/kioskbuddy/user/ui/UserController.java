@@ -4,6 +4,7 @@ import com.kioskbuddy.user.application.UserService;
 import com.kioskbuddy.user.application.dto.UserRegisterRequest;
 import com.kioskbuddy.user.application.dto.UserRegisterResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,8 +19,8 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public ResponseEntity<UserRegisterResponse> register(@RequestBody UserRegisterRequest dto) {
-        UserRegisterResponse response = userService.register(dto);
-        return ResponseEntity.status(201).body(response);
+    public ResponseEntity<UserRegisterResponse> register(@RequestBody UserRegisterRequest request) {
+        UserRegisterResponse response = UserRegisterResponse.userRegisterResponse(userService.register(request));
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }
