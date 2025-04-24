@@ -34,8 +34,8 @@ public class Progress extends BaseTimeEntity {
     @JoinColumn(name = "tutorial_id", nullable = false)
     private Tutorial tutorial;
 
-    @DecimalMin(value = 0, message = "진행도는 최소 0이어야 합니다.")
-    @DecimalMax(value = 100, message = "진행도는 최대 100이어야 합니다.")
+    @DecimalMin(value = "0", message = "진행도는 최소 0이어야 합니다.")
+    @DecimalMax(value = "100", message = "진행도는 최대 100이어야 합니다.")
     @Column(nullable = false)
     private Float progressPercentage;
 
