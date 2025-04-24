@@ -4,6 +4,8 @@ import com.kioskbuddy.backend.common.domain.BaseTimeEntity;
 import com.kioskbuddy.backend.member.domain.Member;
 import com.kioskbuddy.backend.tutorial.domain.Tutorial;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
@@ -32,8 +34,8 @@ public class Progress extends BaseTimeEntity {
     @JoinColumn(name = "tutorial_id", nullable = false)
     private Tutorial tutorial;
 
-    @Min(value = 0, message = "진행도는 최소 0이어야 합니다.")
-    @Max(value = 100, message = "진행도는 최대 100이어야 합니다.")
+    @DecimalMin(value = 0, message = "진행도는 최소 0이어야 합니다.")
+    @DecimalMax(value = 100, message = "진행도는 최대 100이어야 합니다.")
     @Column(nullable = false)
     private Float progressPercentage;
 
