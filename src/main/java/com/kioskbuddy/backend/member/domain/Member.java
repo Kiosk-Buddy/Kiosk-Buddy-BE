@@ -44,4 +44,10 @@ public class Member extends BaseTimeEntity {
                 .password(password)
                 .build();
     }
+
+    public void update(MemberUpdateRequest request) {
+        this.name = request.name();
+        this.age = request.age();
+        this.phoneNumber = request.phoneNumber();
+    }
 }

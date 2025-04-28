@@ -37,4 +37,12 @@ public class MemberService {
                 .orElseThrow(() -> new IllegalArgumentException("회원이 존재하지 않습니다."));
     }
 
+
+    @Transactional
+    public void updateMember(Long memberId, MemberUpdateRequest request) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new IllegalArgumentException("회원이 존재하지 않습니다."));
+
+        member.update(request);
+    }
 }
