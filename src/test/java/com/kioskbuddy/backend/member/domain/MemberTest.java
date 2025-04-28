@@ -12,7 +12,7 @@ class MemberTest {
     void createMember() {
         // given
         String name = "홍길동";
-        Long age = 30L;
+        Integer age = 30;
         String phoneNumber = "010-1234-5678";
         String password = "Abc123!@#";
 

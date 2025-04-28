@@ -29,7 +29,7 @@ class MemberServiceTest {
     @DisplayName("회원가입 테스트")
     void signupMember_success() {
         // given
-        MemberSignupRequest request = new MemberSignupRequest("홍길동", 30L, "010-1234-5678", "Abc123!@#");
+        MemberSignupRequest request = new MemberSignupRequest("홍길동", 30, "010-1234-5678", "Abc123!@#");
         Member member = Member.builder()
                 .name(request.name())
                 .age(request.age())
@@ -55,7 +55,7 @@ class MemberServiceTest {
     @DisplayName("중복 전화번호 예외 테스트")
     void signupMember_duplicatePhoneNumber_throwsException() {
         // given
-        MemberSignupRequest request = new MemberSignupRequest("홍길동", 30L, "010-1234-5678", "Abc123!@#");
+        MemberSignupRequest request = new MemberSignupRequest("홍길동", 30, "010-1234-5678", "Abc123!@#");
         given(memberRepository.existsByPhoneNumber(request.phoneNumber())).willReturn(true);
         
         // when & then
