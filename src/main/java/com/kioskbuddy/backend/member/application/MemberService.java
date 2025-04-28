@@ -1,5 +1,6 @@
 package com.kioskbuddy.backend.member.application;
 
+import com.kioskbuddy.backend.member.application.dto.MemberDetailResponse;
 import com.kioskbuddy.backend.member.application.dto.MemberSignupRequest;
 import com.kioskbuddy.backend.member.application.dto.MemberUpdateRequest;
 import com.kioskbuddy.backend.member.domain.Member;
@@ -32,9 +33,11 @@ public class MemberService {
         return memberRepository.save(member).getId();
     }
 
-    public Member getMember(Long memberId) {
-        return memberRepository.findById(memberId)
+    public MemberDetailResponse getMember(Long memberId) {
+        Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new IllegalArgumentException("회원이 존재하지 않습니다."));
+
+        return MemberDetailResponse.from(member);
     }
 
 
