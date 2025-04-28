@@ -40,7 +40,6 @@ public class MemberService {
         return MemberDetailResponse.from(member);
     }
 
-
     @Transactional
     public void updateMember(Long memberId, MemberUpdateRequest request) {
         Member member = memberRepository.findById(memberId)
