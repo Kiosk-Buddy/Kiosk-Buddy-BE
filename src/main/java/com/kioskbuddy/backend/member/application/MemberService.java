@@ -45,4 +45,12 @@ public class MemberService {
 
         member.update(request);
     }
+
+    @Transactional
+    public void deleteMember(Long memberId) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new IllegalArgumentException("회원이 존재하지 않습니다."));
+
+        memberRepository.delete(member);
+    }
 }
