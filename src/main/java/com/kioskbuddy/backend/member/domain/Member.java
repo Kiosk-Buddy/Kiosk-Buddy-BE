@@ -1,6 +1,7 @@
 package com.kioskbuddy.backend.member.domain;
 
 import com.kioskbuddy.backend.common.domain.BaseTimeEntity;
+import com.kioskbuddy.backend.member.application.dto.MemberUpdateRequest;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -20,7 +21,7 @@ public class Member extends BaseTimeEntity {
 
     private String name;
 
-    private Long age;
+    private Integer age;
 
     @Column(name = "phone_number", unique = true)
     private String phoneNumber;
@@ -28,14 +29,14 @@ public class Member extends BaseTimeEntity {
     private String password;
 
     @Builder
-    private Member(String name, Long age, String phoneNumber, String password) {
+    private Member(String name, Integer age, String phoneNumber, String password) {
         this.name = name;
         this.age = age;
         this.phoneNumber = phoneNumber;
         this.password = password;
     }
 
-    public static Member create(String name, Long age, String phoneNumber, String password) {
+    public static Member create(String name, Integer age, String phoneNumber, String password) {
         return Member.builder()
                 .name(name)
                 .age(age)
