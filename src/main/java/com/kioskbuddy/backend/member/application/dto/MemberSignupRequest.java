@@ -13,7 +13,7 @@ public record MemberSignupRequest (
         @NotNull(message = "나이는 필수입니다.")
         @Min(value = 5, message = "나이는 최소 5 이상이어야 합니다.")
         @Max(value = 100, message = "나이는 최대 100 이하여야 합니다.")
-        Long age,
+        Integer age,
 
         @NotEmpty(message = "전화번호는 필수입니다.")
         @Pattern(
