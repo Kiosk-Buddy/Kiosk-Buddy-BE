@@ -1,6 +1,8 @@
 package com.kioskbuddy.backend.member.application;
 
+import com.kioskbuddy.backend.member.application.dto.MemberDetailResponse;
 import com.kioskbuddy.backend.member.application.dto.MemberSignupRequest;
+import com.kioskbuddy.backend.member.application.dto.MemberUpdateRequest;
 import com.kioskbuddy.backend.member.domain.Member;
 import com.kioskbuddy.backend.member.repository.jpa.JpaMemberRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -59,8 +61,76 @@ class MemberServiceTest {
         given(memberRepository.existsByPhoneNumber(request.phoneNumber())).willReturn(true);
         
         // when & then
-        assertThrows(IllegalArgumentException.class, () -> {
-            memberService.signupMember(request);
-        });
-    } 
+        assertThrows(IllegalArgumentException.class, () ->
+            memberService.signupMember(request)
+        );
+    }
+    
+    @Test
+    @DisplayName("Member 정보 조회 테스트")
+    void getMemberTest() {
+        // given
+        Long memberId = 1L;
+        Member member = Member.builder()
+                .name("홍길동")
+                .age(30)
+                .phoneNumber("010-1234-5678")
+                .password("Abc123!@#")
+                .build();
+        
+        // when
+        given(memberRepository.findById(memberId)).willReturn(java.util.Optional.of(member));
+        
+        // then
+        MemberDetailResponse result = memberService.getMember(memberId);
+        assertEquals(member.getName(), result.name());
+        assertEquals(member.getAge(), result.age());
+        assertEquals(member.getPhoneNumber(), result.phoneNumber());
+    }
+
+    @Test
+    @DisplayName("Member 정보 업데이트 테스트")
+    void updateMemberTest() {
+        // given
+        Long memberId = 1L;
+        Member member = Member.builder()
+                .name("홍길동")
+                .age(30)
+                .phoneNumber("010-1234-5678")
+                .password("Abc123!@#")
+                .build();
+
+        MemberUpdateRequest request = new MemberUpdateRequest("김철수", 35, "010-9876-5432");
+        given(memberRepository.findById(memberId)).willReturn(java.util.Optional.of(member));
+        
+        // when
+        memberService.updateMember(memberId, request);
+        
+        // then
+        assertEquals(request.name(), member.getName());
+        assertEquals(request.age(), member.getAge());
+        assertEquals(request.phoneNumber(), member.getPhoneNumber());
+        verify(memberRepository).findById(memberId);
+    }
+
+    @Test
+    @DisplayName("Member 삭제 테스트")
+    void deleteMemberTest() {
+        // given
+        Long memberId = 1L;
+        Member member = Member.builder()
+                .name("홍길동")
+                .age(30)
+                .phoneNumber("010-1234-5678")
+                .password("Abc123!@#")
+                .build();
+
+        given(memberRepository.findById(memberId)).willReturn(java.util.Optional.of(member));
+
+        // when
+        memberService.deleteMember(memberId);
+
+        // then
+        verify(memberRepository).delete(member);
+    }
 }
