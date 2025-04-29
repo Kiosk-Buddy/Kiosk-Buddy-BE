@@ -33,11 +33,9 @@ public class MemberService {
         return memberRepository.save(member).getId();
     }
 
-    public MemberDetailResponse getMember(Long memberId) {
-        Member member = memberRepository.findById(memberId)
+    public Member getMember(Long memberId) {
+        return memberRepository.findById(memberId)
                 .orElseThrow(() -> new IllegalArgumentException("회원이 존재하지 않습니다."));
-
-        return MemberDetailResponse.from(member);
     }
 
     @Transactional
