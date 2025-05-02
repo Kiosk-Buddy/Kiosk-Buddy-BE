@@ -1,6 +1,5 @@
 package com.kioskbuddy.backend.member.application;
 
-import com.kioskbuddy.backend.member.application.dto.MemberDetailResponse;
 import com.kioskbuddy.backend.member.application.dto.MemberSignupRequest;
 import com.kioskbuddy.backend.member.application.dto.MemberUpdateRequest;
 import com.kioskbuddy.backend.member.domain.Member;
@@ -13,7 +12,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
@@ -65,7 +65,8 @@ class MemberServiceTest {
             memberService.signupMember(request)
         );
     }
-    
+
+    // TODO: Member로 비교하도록 수정
     @Test
     @DisplayName("Member 정보 조회 테스트")
     void getMemberTest() {
@@ -77,15 +78,15 @@ class MemberServiceTest {
                 .phoneNumber("010-1234-5678")
                 .password("Abc123!@#")
                 .build();
-        
+
         // when
         given(memberRepository.findById(memberId)).willReturn(java.util.Optional.of(member));
-        
+
         // then
-        MemberDetailResponse result = memberService.getMember(memberId);
-        assertEquals(member.getName(), result.name());
-        assertEquals(member.getAge(), result.age());
-        assertEquals(member.getPhoneNumber(), result.phoneNumber());
+        Member result = memberService.getMember(memberId);
+        assertEquals(member.getName(), result.getName());
+        assertEquals(member.getAge(), result.getAge());
+        assertEquals(member.getPhoneNumber(), result.getPhoneNumber());
     }
 
     @Test
