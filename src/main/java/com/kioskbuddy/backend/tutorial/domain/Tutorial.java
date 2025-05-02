@@ -43,6 +43,6 @@ public class Tutorial extends BaseTimeEntity {
     public void update(TutorialUpdateRequest request) {
         this.title = request.title();
         this.description = request.description();
-        this.difficultyLevel = DifficultyLevel.valueOf(request.difficultyLevel().name());
+        this.difficultyLevel = request.difficultyLevel();
     }
 }
