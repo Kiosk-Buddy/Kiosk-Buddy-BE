@@ -16,6 +16,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 class TutorialServiceTest {
@@ -116,5 +117,27 @@ class TutorialServiceTest {
         assertEquals("수정된 제목", tutorial.getTitle());
         assertEquals("수정된 설명", tutorial.getDescription());
         assertEquals(DifficultyLevel.MEDIUM, tutorial.getDifficultyLevel());
+    }
+
+    @Test
+    @DisplayName("Tutorial 삭제 테스트")
+    void deleteTutorialTest() {
+        // given
+        Long tutorialId = 1L;
+        Tutorial tutorial = Tutorial.builder()
+                .title("테스트 튜토리얼")
+                .description("이 튜토리얼은 테스트용입니다.")
+                .difficultyLevel(DifficultyLevel.EASY)
+                .build();
+        ReflectionTestUtils.setField(tutorial, "id", tutorialId);
+
+        given(tutorialRepository.findById(tutorialId)).willReturn(java.util.Optional.of(tutorial));
+
+        // when
+        tutorialService.deleteTutorial(tutorialId);
+
+        // then
+        verify(tutorialRepository).findById(tutorialId); // findById 호출 검증
+        verify(tutorialRepository).delete(tutorial); // delete 호출 검증
     }
 }
