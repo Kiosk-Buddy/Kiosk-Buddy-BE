@@ -38,4 +38,12 @@ public class TutorialService {
 
         tutorial.update(request);
     }
+
+    @Transactional
+    public void deleteTutorial(Long id) {
+        Tutorial tutorial = tutorialRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("튜토리얼이 존재하지 않습니다."));
+
+        tutorialRepository.delete(tutorial);
+    }
 }

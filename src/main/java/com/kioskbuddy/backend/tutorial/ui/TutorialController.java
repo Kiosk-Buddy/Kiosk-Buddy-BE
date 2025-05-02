@@ -34,4 +34,10 @@ public class TutorialController {
         tutorialService.updateTutorial(tutorialId, request);
         return ResponseEntity.noContent().build();
     }
+
+    @DeleteMapping("/{tutorialId}")
+    public ResponseEntity<Void> deleteTutorial(@PathVariable Long tutorialId) {
+        tutorialService.deleteTutorial(tutorialId);
+        return ResponseEntity.noContent().build();
+    }
 }
