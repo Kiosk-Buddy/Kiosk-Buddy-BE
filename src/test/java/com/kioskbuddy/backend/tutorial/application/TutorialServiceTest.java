@@ -1,6 +1,7 @@
 package com.kioskbuddy.backend.tutorial.application;
 
 import com.kioskbuddy.backend.tutorial.application.dto.TutorialCreateRequest;
+import com.kioskbuddy.backend.tutorial.application.dto.TutorialUpdateRequest;
 import com.kioskbuddy.backend.tutorial.domain.DifficultyLevel;
 import com.kioskbuddy.backend.tutorial.domain.Tutorial;
 import com.kioskbuddy.backend.tutorial.repository.JpaTutorialRepository;
@@ -88,5 +89,32 @@ class TutorialServiceTest {
         assertEquals(title, foundTutorial.getTitle());
         assertEquals(description, foundTutorial.getDescription());
         assertEquals(difficultyLevel, foundTutorial.getDifficultyLevel());
+    }
+
+    @Test
+    @DisplayName("Tutorial 수정 테스트")
+    void updateTutorialTest() {
+        // given
+        Long tutorialId = 1L;
+        String title = "테스트 튜토리얼";
+        String description = "이 튜토리얼은 테스트용입니다.";
+        DifficultyLevel difficultyLevel = DifficultyLevel.EASY;
+
+        Tutorial tutorial = Tutorial.builder()
+                .title(title)
+                .description(description)
+                .difficultyLevel(difficultyLevel)
+                .build();
+
+        ReflectionTestUtils.setField(tutorial, "id", tutorialId);
+
+        // when
+        given(tutorialRepository.findById(tutorialId)).willReturn(java.util.Optional.of(tutorial));
+        tutorialService.updateTutorial(tutorialId, new TutorialUpdateRequest("수정된 제목", "수정된 설명", DifficultyLevel.MEDIUM));
+
+        // then
+        assertEquals("수정된 제목", tutorial.getTitle());
+        assertEquals("수정된 설명", tutorial.getDescription());
+        assertEquals(DifficultyLevel.MEDIUM, tutorial.getDifficultyLevel());
     }
 }
