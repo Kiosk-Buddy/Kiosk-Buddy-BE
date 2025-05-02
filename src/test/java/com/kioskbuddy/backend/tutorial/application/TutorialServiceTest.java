@@ -61,4 +61,32 @@ class TutorialServiceTest {
         assertEquals(difficultyLevel, savedTutorial.getDifficultyLevel());
         assertEquals(expectedId, savedTutorial.getId());
     }
+
+    @Test
+    @DisplayName("Tutorial 조회 테스트")
+    void getTutorialTest() {
+        // given
+        Long tutorialId = 1L;
+        String title = "테스트 튜토리얼";
+        String description = "이 튜토리얼은 테스트용입니다.";
+        DifficultyLevel difficultyLevel = DifficultyLevel.EASY;
+
+        Tutorial tutorial = Tutorial.builder()
+                .title(title)
+                .description(description)
+                .difficultyLevel(difficultyLevel)
+                .build();
+
+        ReflectionTestUtils.setField(tutorial, "id", tutorialId);
+
+        // when
+        given(tutorialRepository.findById(tutorialId)).willReturn(java.util.Optional.of(tutorial));
+        Tutorial foundTutorial = tutorialService.getTutorial(tutorialId);
+
+        // then
+        assertEquals(tutorialId, foundTutorial.getId());
+        assertEquals(title, foundTutorial.getTitle());
+        assertEquals(description, foundTutorial.getDescription());
+        assertEquals(difficultyLevel, foundTutorial.getDifficultyLevel());
+    }
 }
