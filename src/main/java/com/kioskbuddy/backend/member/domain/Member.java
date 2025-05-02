@@ -1,17 +1,16 @@
 package com.kioskbuddy.backend.member.domain;
 
 import com.kioskbuddy.backend.common.domain.BaseTimeEntity;
+import com.kioskbuddy.backend.member.application.dto.MemberUpdateRequest;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "member")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 @Getter
 public class Member extends BaseTimeEntity {
 
@@ -20,29 +19,35 @@ public class Member extends BaseTimeEntity {
     @Column(name = "member_id", updatable = false, nullable = false)
     private Long id;
 
-    @NotEmpty(message = "이름은 필수입니다.")
-    @Pattern(
-            regexp = "^[가-힣]{2,5}$",
-            message = "이름은 2자 이상 5자 이하의 한글이어야 합니다."
-    )
     private String name;
 
-    @NotNull(message = "나이는 필수입니다.")
-    @Min(value = 5, message = "나이는 최소 5 이상이어야 합니다.")
-    @Max(value = 100, message = "나이는 최대 100 이하여야 합니다.")
-    private Long age;
+    private Integer age;
 
-    @NotEmpty(message = "전화번호는 필수입니다.")
-    @Pattern(
-            regexp = "^\\d{3}-\\d{3,4}-\\d{4}$",
-            message = "전화번호는 '000-0000-0000' 형식이어야 합니다."
-    )
+    @Column(name = "phone_number", unique = true)
     private String phoneNumber;
 
-    @NotEmpty(message = "비밀번호는 필수입니다.")
-    @Pattern(
-            regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
-            message = "비밀번호는 최소 8자 이상, 하나 이상의 대문자, 소문자, 숫자, 특수문자를 포함해야 합니다."
-    )
     private String password;
+
+    @Builder
+    private Member(String name, Integer age, String phoneNumber, String password) {
+        this.name = name;
+        this.age = age;
+        this.phoneNumber = phoneNumber;
+        this.password = password;
+    }
+
+    public static Member create(String name, Integer age, String phoneNumber, String password) {
+        return Member.builder()
+                .name(name)
+                .age(age)
+                .phoneNumber(phoneNumber)
+                .password(password)
+                .build();
+    }
+
+    public void update(MemberUpdateRequest request) {
+        this.name = request.name();
+        this.age = request.age();
+        this.phoneNumber = request.phoneNumber();
+    }
 }
