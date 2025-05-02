@@ -24,4 +24,9 @@ public class TutorialService {
 
         return tutorialRepository.save(tutorial).getId();
     }
+
+    public Tutorial getTutorial(Long id) {
+        return tutorialRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("튜토리얼이 존재하지 않습니다."));
+    }
 }

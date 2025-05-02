@@ -1,6 +1,9 @@
 package com.kioskbuddy.backend.tutorial.domain;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.RequiredArgsConstructor;
+
 
 @RequiredArgsConstructor
 public enum DifficultyLevel {
@@ -8,16 +11,13 @@ public enum DifficultyLevel {
     MEDIUM,
     HARD;
 
-//    public static DifficultyLevel fromString(String level) {
-//        switch (level.toUpperCase()) {
-//            case "EASY":
-//                return EASY;
-//            case "MEDIUM":
-//                return MEDIUM;
-//            case "HARD":
-//                return HARD;
-//            default:
-//                throw new IllegalArgumentException("Unknown difficulty level: " + level);
-//        }
-//    }
+    @JsonCreator
+    public static DifficultyLevel from(String value) {
+        return DifficultyLevel.valueOf(value.toUpperCase());
+    }
+
+    @JsonValue
+    public String toValue() {
+        return this.name().toLowerCase();
+    }
 }
