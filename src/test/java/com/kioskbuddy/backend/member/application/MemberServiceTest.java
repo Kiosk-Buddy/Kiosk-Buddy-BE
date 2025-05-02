@@ -66,7 +66,6 @@ class MemberServiceTest {
         );
     }
 
-    // TODO: Member로 비교하도록 수정
     @Test
     @DisplayName("Member 정보 조회 테스트")
     void getMemberTest() {
