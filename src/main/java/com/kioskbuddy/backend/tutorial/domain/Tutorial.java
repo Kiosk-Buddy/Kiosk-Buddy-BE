@@ -1,6 +1,7 @@
 package com.kioskbuddy.backend.tutorial.domain;
 
 import com.kioskbuddy.backend.common.domain.BaseTimeEntity;
+import com.kioskbuddy.backend.tutorial.application.dto.TutorialUpdateRequest;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -37,5 +38,11 @@ public class Tutorial extends BaseTimeEntity {
         this.title = title;
         this.description = description;
         this.difficultyLevel = difficultyLevel;
+    }
+
+    public void update(TutorialUpdateRequest request) {
+        this.title = request.title();
+        this.description = request.description();
+        this.difficultyLevel = DifficultyLevel.valueOf(request.difficultyLevel().name());
     }
 }

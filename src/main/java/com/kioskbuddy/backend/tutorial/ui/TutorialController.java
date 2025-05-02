@@ -3,6 +3,7 @@ package com.kioskbuddy.backend.tutorial.ui;
 import com.kioskbuddy.backend.tutorial.application.TutorialService;
 import com.kioskbuddy.backend.tutorial.application.dto.TutorialCreateRequest;
 import com.kioskbuddy.backend.tutorial.application.dto.TutorialDetailResponse;
+import com.kioskbuddy.backend.tutorial.application.dto.TutorialUpdateRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,5 +26,12 @@ public class TutorialController {
     public ResponseEntity<TutorialDetailResponse> getTutorial(@PathVariable Long tutorialId) {
         TutorialDetailResponse response = new TutorialDetailResponse(tutorialService.getTutorial(tutorialId));
         return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/{tutorialId}")
+    public ResponseEntity<Void> updateTutorial(@PathVariable Long tutorialId,
+                                               @RequestBody TutorialUpdateRequest request) {
+        tutorialService.updateTutorial(tutorialId, request);
+        return ResponseEntity.noContent().build();
     }
 }
