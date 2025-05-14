@@ -2,7 +2,7 @@ package com.kioskbuddy.backend.progress.application;
 
 import com.kioskbuddy.backend.member.domain.Member;
 import com.kioskbuddy.backend.member.repository.jpa.JpaMemberRepository;
-import com.kioskbuddy.backend.progress.application.dto.CreateProgressRequest;
+import com.kioskbuddy.backend.progress.application.dto.ProgressCreateRequest;
 import com.kioskbuddy.backend.progress.domain.Progress;
 import com.kioskbuddy.backend.progress.repository.JpaProgressRepository;
 import com.kioskbuddy.backend.tutorial.domain.Tutorial;
@@ -21,7 +21,7 @@ public class ProgressService {
     private final JpaTutorialRepository tutorialRepository;
 
     @Transactional
-    public Long createProgress(CreateProgressRequest request) {
+    public Long createProgress(ProgressCreateRequest request) {
         Member member = memberRepository.findById(request.memberId())
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
 

@@ -1,7 +1,7 @@
 package com.kioskbuddy.backend.progress.ui;
 
 import com.kioskbuddy.backend.progress.application.ProgressService;
-import com.kioskbuddy.backend.progress.application.dto.CreateProgressRequest;
+import com.kioskbuddy.backend.progress.application.dto.ProgressCreateRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,6 +20,7 @@ public class ProgressController {
 
     @PostMapping
     public ResponseEntity<Long> createProgress(@Valid @RequestBody CreateProgressRequest request) {
+    public ResponseEntity<Long> createProgress(@Valid @RequestBody ProgressCreateRequest request) {
         Long progressId = progressService.createProgress(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(progressId);
     }

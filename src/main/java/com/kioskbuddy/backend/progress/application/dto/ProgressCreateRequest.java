@@ -3,7 +3,7 @@ package com.kioskbuddy.backend.progress.application.dto;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 
-public record CreateProgressRequest(
+public record ProgressCreateRequest(
         Long memberId,
         Long tutorialId,
 

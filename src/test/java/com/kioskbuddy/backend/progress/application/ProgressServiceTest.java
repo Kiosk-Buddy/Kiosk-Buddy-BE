@@ -2,7 +2,7 @@ package com.kioskbuddy.backend.progress.application;
 
 import com.kioskbuddy.backend.member.domain.Member;
 import com.kioskbuddy.backend.member.repository.jpa.JpaMemberRepository;
-import com.kioskbuddy.backend.progress.application.dto.CreateProgressRequest;
+import com.kioskbuddy.backend.progress.application.dto.ProgressCreateRequest;
 import com.kioskbuddy.backend.progress.domain.Progress;
 import com.kioskbuddy.backend.progress.repository.JpaProgressRepository;
 import com.kioskbuddy.backend.tutorial.domain.DifficultyLevel;
@@ -49,7 +49,7 @@ class ProgressServiceTest {
         ReflectionTestUtils.setField(member, "id", 1L);
         ReflectionTestUtils.setField(tutorial, "id", 1L);
 
-        CreateProgressRequest request = new CreateProgressRequest(1L, 1L, 75.0f);
+        ProgressCreateRequest request = new ProgressCreateRequest(1L, 1L, 75.0f);
 
         given(memberRepository.findById(1L)).willReturn(Optional.of(member));
         given(tutorialRepository.findById(1L)).willReturn(Optional.of(tutorial));
