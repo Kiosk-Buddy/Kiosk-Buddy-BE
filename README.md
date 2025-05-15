@@ -1,5 +1,44 @@
 # Kiosk-Buddy-BE
-백엔드 레포지토리
+
+> 디지털 소외계층을 위한 **키오스크 가이드 & 시뮬레이터** 백엔드 서버  
+> Spring Boot 기반 RESTful API 서비스
+> 프로젝트는 본래 김소정님과 함께 기획되었으나, 백엔드 개발이 어려워져 현재는 단독으로 개발을 이어가고 있습니다.
+
+## 📌 프로젝트 개요
+
+**KioskBuddy**는 디지털 소외계층(고령층, 장애인 등)을 대상으로  
+키오스크 사용을 **가이드하고 테스트**할 수 있는 애플리케이션입니다.  
+
+이 저장소는 백엔드 서버로서 다음 기능을 담당합니다.
+
+- 사용자 계정 등록 및 인증
+- 튜토리얼 진행 내역 저장
+- 시뮬레이터 테스트 결과 기록
+- 사용자 피드백 및 진행 현황 분석
+
+## 프로젝트 구조
+
+com.kioskbuddy.backend
+├── member                                 ← 도메인 기준 하위 디렉토리
+│   ├── domain                             ← 순수 도메인 모델
+│   │   └── Member.java                          ← Entity, VO
+│   │   
+│   ├── application                        ← Use case 중심 로직
+│   │   ├── MemberService                  ← 유스케이스 서비스
+│   │   │ 
+│   │   └── dto                            ← Request/Response DTO
+│   │       ├── MemberCreateRequest.java
+│   │       └── MemberDetailResponse.java
+│
+│   ├── repository                         ← 외부 기술 연계 (JPA, Redis, Kafka 등)
+│   │   └── jpa
+│   │       └── JpaMemberRepository.java
+│
+│   └── ui                                 ← API Layer (Controller)
+│       └── MemberController.java
+│
+├── Tutorial                               ← 또 다른 도메인 (같은 구조)
+│   └── ...
 
 # API 명세
 
@@ -11,6 +50,10 @@
 
 ### Progress
 <img width="1517" alt="스크린샷 2025-05-15 오후 5 39 45" src="https://github.com/user-attachments/assets/5d8e3b6b-abac-4c27-b3da-166b5318adbf" />
+
+# 테스트 
+
+> JUnit5 + Mockito 기반 단위 테스트 작성
 
 # ERD
 <img width="1311" alt="스크린샷 2025-04-21 18 46 19" src="https://github.com/user-attachments/assets/9b7646cf-2602-4619-a1e2-5a20d53fd9dd" />
