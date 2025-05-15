@@ -35,6 +35,6 @@ public class TestSessionService {
 
     public TestSession getTestSession(Long testSessionId) {
         return testSessionRepository.findWithMemberAndTutorialById(testSessionId)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 테스트 기록입나다."));
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 테스트 기록입니다."));
     }
 }
