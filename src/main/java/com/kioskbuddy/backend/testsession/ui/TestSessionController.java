@@ -18,7 +18,7 @@ public class TestSessionController {
     private final TestSessionService testSessionService;
 
     @PostMapping
-    public ResponseEntity<Long> createTestSession(@RequestBody TestSessionCreateRequest request) {
+    public ResponseEntity<Long> createTestSession(@Valid @RequestBody TestSessionCreateRequest request) {
         Long testSessionId = testSessionService.createTestSession(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(testSessionId);
     }
