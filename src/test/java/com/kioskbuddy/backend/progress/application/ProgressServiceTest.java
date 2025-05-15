@@ -145,4 +145,26 @@ class ProgressServiceTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("존재하지 않는 진행도입니다.");
     }
+
+    @Test
+    @DisplayName("진행도 정상 삭제")
+    void deleteProgressTest() {
+        // given
+        Member member = Member.create("홍길동", 40, "010-1234-5678", "password");
+        Tutorial tutorial = Tutorial.create("튜토리얼 제목", "설명", DifficultyLevel.MEDIUM);
+
+        ReflectionTestUtils.setField(member, "id", 1L);
+        ReflectionTestUtils.setField(tutorial, "id", 1L);
+
+        Progress progress = Progress.create(member, tutorial, 0.5f);
+        ReflectionTestUtils.setField(progress, "id", 100L);
+
+        given(progressRepository.findById(100L)).willReturn(Optional.of(progress));
+
+        // when
+        progressService.deleteProgress(100L);
+
+        // then
+        verify(progressRepository).delete(progress);
+    }
 }
