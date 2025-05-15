@@ -3,6 +3,7 @@ package com.kioskbuddy.backend.progress.ui;
 import com.kioskbuddy.backend.progress.application.ProgressService;
 import com.kioskbuddy.backend.progress.application.dto.ProgressCreateRequest;
 import com.kioskbuddy.backend.progress.application.dto.ProgressDetailResponse;
+import com.kioskbuddy.backend.progress.application.dto.ProgressUpdateRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -26,5 +27,11 @@ public class ProgressController {
     public ResponseEntity<ProgressDetailResponse> getProgress(@PathVariable Long progressId) {
         ProgressDetailResponse response = ProgressDetailResponse.from(progressService.getProgress(progressId));
         return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/{progressId}")
+    public ResponseEntity<Void> updateProgress(@PathVariable Long progressId, @RequestBody ProgressUpdateRequest request) {
+        progressService.updateProgress(progressId, request);
+        return ResponseEntity.noContent().build();
     }
 }

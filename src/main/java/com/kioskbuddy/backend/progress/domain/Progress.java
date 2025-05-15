@@ -48,4 +48,8 @@ public class Progress extends BaseTimeEntity {
                 .progressPercentage(progressPercentage)
                 .build();
     }
+
+    public void update(Float progressPercentage) {
+        this.progressPercentage = progressPercentage;
+    }
 }

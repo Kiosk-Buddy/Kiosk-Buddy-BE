@@ -3,6 +3,7 @@ package com.kioskbuddy.backend.progress.application;
 import com.kioskbuddy.backend.member.domain.Member;
 import com.kioskbuddy.backend.member.repository.jpa.JpaMemberRepository;
 import com.kioskbuddy.backend.progress.application.dto.ProgressCreateRequest;
+import com.kioskbuddy.backend.progress.application.dto.ProgressUpdateRequest;
 import com.kioskbuddy.backend.progress.domain.Progress;
 import com.kioskbuddy.backend.progress.repository.JpaProgressRepository;
 import com.kioskbuddy.backend.tutorial.domain.Tutorial;
@@ -36,5 +37,13 @@ public class ProgressService {
     public Progress getProgress(Long progressId) {
         return progressRepository.findWithMemberAndTutorialById(progressId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 진행도입니다."));
+    }
+
+    @Transactional
+    public void updateProgress(Long progressId, ProgressUpdateRequest request) {
+        Progress progress = progressRepository.findWithMemberAndTutorialById(progressId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 진행도입니다."));
+
+        progress.update(request.progressPercentage());
     }
 }
