@@ -100,4 +100,49 @@ class ProgressServiceTest {
         assertThat(result.getMember().getId()).isEqualTo(1L);
         assertThat(result.getTutorial().getId()).isEqualTo(2L);
     }
+
+    @Test
+    @DisplayName("진행도 업데이트 성공")
+    void updateProgressTest() {
+        // given
+        Member member = Member.create("홍길동", 30, "010-3333-4444", "pw");
+        Tutorial tutorial = Tutorial.create("튜토", "설명", DifficultyLevel.HARD);
+        Progress progress = Progress.create(member, tutorial, 0.3f);
+        ReflectionTestUtils.setField(progress, "id", 5L);
+
+        given(progressRepository.findWithMemberAndTutorialById(5L)).willReturn(Optional.of(progress));
+
+        ProgressUpdateRequest request = new ProgressUpdateRequest(0.9f);
+
+        // when
+        progressService.updateProgress(5L, request);
+
+        // then
+        assertThat(progress.getProgressPercentage()).isEqualTo(0.9f);
+    }
+
+    @Test
+    @DisplayName("존재하지 않는 진행도 조회 시 예외 발생")
+    void getProgressThrowsExceptionWhenNotFound() {
+        // given
+        given(progressRepository.findWithMemberAndTutorialById(999L)).willReturn(Optional.empty());
+
+        // expect
+        assertThatThrownBy(() -> progressService.getProgress(999L))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("존재하지 않는 진행도입니다.");
+    }
+
+    @Test
+    @DisplayName("존재하지 않는 진행도 업데이트 시 예외 발생")
+    void updateProgressThrowsExceptionWhenNotFound() {
+        // given
+        given(progressRepository.findWithMemberAndTutorialById(999L)).willReturn(Optional.empty());
+        ProgressUpdateRequest request = new ProgressUpdateRequest(0.7f);
+
+        // expect
+        assertThatThrownBy(() -> progressService.updateProgress(999L, request))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("존재하지 않는 진행도입니다.");
+    }
 }
