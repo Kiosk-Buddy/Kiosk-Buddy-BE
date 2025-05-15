@@ -38,18 +38,8 @@ class TutorialServiceTest {
         TutorialCreateRequest request = new TutorialCreateRequest(title, description, difficultyLevel);
         Long expectedId = 1L;
 
-        Tutorial tutorial = Tutorial.builder()
-                .title(title)
-                .description(description)
-                .difficultyLevel(difficultyLevel)
-                .build();
+        Tutorial savedTutorial = Tutorial.create(title, description, difficultyLevel);
 
-        // id를 설정한 Tutorial 객체를 반환하도록 설정
-        Tutorial savedTutorial = Tutorial.builder()
-                .title(title)
-                .description(description)
-                .difficultyLevel(difficultyLevel)
-                .build();
         ReflectionTestUtils.setField(savedTutorial, "id", expectedId); // ReflectionTestUtils로 id 설정
 
         // when
@@ -73,11 +63,7 @@ class TutorialServiceTest {
         String description = "이 튜토리얼은 테스트용입니다.";
         DifficultyLevel difficultyLevel = DifficultyLevel.EASY;
 
-        Tutorial tutorial = Tutorial.builder()
-                .title(title)
-                .description(description)
-                .difficultyLevel(difficultyLevel)
-                .build();
+        Tutorial tutorial = Tutorial.create(title, description, difficultyLevel);
 
         ReflectionTestUtils.setField(tutorial, "id", tutorialId);
 
@@ -101,11 +87,7 @@ class TutorialServiceTest {
         String description = "이 튜토리얼은 테스트용입니다.";
         DifficultyLevel difficultyLevel = DifficultyLevel.EASY;
 
-        Tutorial tutorial = Tutorial.builder()
-                .title(title)
-                .description(description)
-                .difficultyLevel(difficultyLevel)
-                .build();
+        Tutorial tutorial = Tutorial.create(title, description, difficultyLevel);
 
         ReflectionTestUtils.setField(tutorial, "id", tutorialId);
 
@@ -124,11 +106,12 @@ class TutorialServiceTest {
     void deleteTutorialTest() {
         // given
         Long tutorialId = 1L;
-        Tutorial tutorial = Tutorial.builder()
-                .title("테스트 튜토리얼")
-                .description("이 튜토리얼은 테스트용입니다.")
-                .difficultyLevel(DifficultyLevel.EASY)
-                .build();
+        String title = "테스트 튜토리얼";
+        String description = "이 튜토리얼은 테스트용입니다.";
+        DifficultyLevel difficultyLevel = DifficultyLevel.EASY;
+
+        Tutorial tutorial = Tutorial.create(title, description, difficultyLevel);
+
         ReflectionTestUtils.setField(tutorial, "id", tutorialId);
 
         given(tutorialRepository.findById(tutorialId)).willReturn(java.util.Optional.of(tutorial));
@@ -137,7 +120,7 @@ class TutorialServiceTest {
         tutorialService.deleteTutorial(tutorialId);
 
         // then
-        verify(tutorialRepository).findById(tutorialId); // findById 호출 검증
-        verify(tutorialRepository).delete(tutorial); // delete 호출 검증
+        verify(tutorialRepository).findById(tutorialId);
+        verify(tutorialRepository).delete(tutorial);
     }
 }

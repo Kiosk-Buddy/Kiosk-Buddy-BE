@@ -16,11 +16,7 @@ class TutorialTest {
         DifficultyLevel difficultyLevel = DifficultyLevel.EASY;
 
         // when
-        Tutorial tutorial = Tutorial.builder()
-                .title(title)
-                .description(description)
-                .difficultyLevel(difficultyLevel)
-                .build();
+        Tutorial tutorial = Tutorial.create(title, description, difficultyLevel);
         
         // then
         assertEquals(title, tutorial.getTitle());

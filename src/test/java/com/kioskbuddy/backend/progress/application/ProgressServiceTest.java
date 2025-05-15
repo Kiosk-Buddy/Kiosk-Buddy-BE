@@ -68,7 +68,6 @@ class ProgressServiceTest {
         // then
         assertEquals(10L, result);
 
-        // 추가 검증: save()에 전달된 Progress 객체 확인
         ArgumentCaptor<Progress> captor = ArgumentCaptor.forClass(Progress.class);
         verify(progressRepository).save(captor.capture());
 
@@ -78,14 +77,15 @@ class ProgressServiceTest {
         assertEquals(tutorial, captured.getTutorial());
     }
     @Test
-    @DisplayName("진행도 조회 성공")
+    @DisplayName("Progress 조회 성공")
     void getProgressTest() {
         // given
         Member member = Member.create("홍길동", 30, "010-1111-2222", "pw");
         Tutorial tutorial = Tutorial.create("타이틀", "설명", DifficultyLevel.EASY);
-        Progress progress = Progress.create(member, tutorial, 0.6f);
         ReflectionTestUtils.setField(member, "id", 1L);
         ReflectionTestUtils.setField(tutorial, "id", 2L);
+
+        Progress progress = Progress.create(member, tutorial, 0.6f);
         ReflectionTestUtils.setField(progress, "id", 3L);
 
         given(progressRepository.findWithMemberAndTutorialById(3L)).willReturn(Optional.of(progress));
@@ -102,7 +102,7 @@ class ProgressServiceTest {
     }
 
     @Test
-    @DisplayName("진행도 업데이트 성공")
+    @DisplayName("Progress 업데이트 성공")
     void updateProgressTest() {
         // given
         Member member = Member.create("홍길동", 30, "010-3333-4444", "pw");
@@ -122,7 +122,7 @@ class ProgressServiceTest {
     }
 
     @Test
-    @DisplayName("존재하지 않는 진행도 조회 시 예외 발생")
+    @DisplayName("존재하지 않는 Progress 조회 시 예외 발생")
     void getProgressThrowsExceptionWhenNotFound() {
         // given
         given(progressRepository.findWithMemberAndTutorialById(999L)).willReturn(Optional.empty());
@@ -134,7 +134,7 @@ class ProgressServiceTest {
     }
 
     @Test
-    @DisplayName("존재하지 않는 진행도 업데이트 시 예외 발생")
+    @DisplayName("존재하지 않는 Progress 업데이트 시 예외 발생")
     void updateProgressThrowsExceptionWhenNotFound() {
         // given
         given(progressRepository.findWithMemberAndTutorialById(999L)).willReturn(Optional.empty());
@@ -147,7 +147,7 @@ class ProgressServiceTest {
     }
 
     @Test
-    @DisplayName("진행도 정상 삭제")
+    @DisplayName("Progress 정상 삭제")
     void deleteProgressTest() {
         // given
         Member member = Member.create("홍길동", 40, "010-1234-5678", "password");

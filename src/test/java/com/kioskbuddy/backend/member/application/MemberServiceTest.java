@@ -32,12 +32,7 @@ class MemberServiceTest {
     void signupMember_success() {
         // given
         MemberSignupRequest request = new MemberSignupRequest("홍길동", 30, "010-1234-5678", "Abc123!@#");
-        Member member = Member.builder()
-                .name(request.name())
-                .age(request.age())
-                .phoneNumber(request.phoneNumber())
-                .password(request.password())
-                .build();
+        Member member = Member.create(request.name(), request.age(), request.phoneNumber(), request.password());
 
         ReflectionTestUtils.setField(member, "id", 1L);
 
@@ -71,12 +66,12 @@ class MemberServiceTest {
     void getMemberTest() {
         // given
         Long memberId = 1L;
-        Member member = Member.builder()
-                .name("홍길동")
-                .age(30)
-                .phoneNumber("010-1234-5678")
-                .password("Abc123!@#")
-                .build();
+        String name = "홍길동";
+        Integer age = 30;
+        String phoneNumber = "010-1234-5678";
+        String password = "Abc123!@#";
+
+        Member member = Member.create(name, age, phoneNumber, password);
 
         // when
         given(memberRepository.findById(memberId)).willReturn(java.util.Optional.of(member));
@@ -93,12 +88,12 @@ class MemberServiceTest {
     void updateMemberTest() {
         // given
         Long memberId = 1L;
-        Member member = Member.builder()
-                .name("홍길동")
-                .age(30)
-                .phoneNumber("010-1234-5678")
-                .password("Abc123!@#")
-                .build();
+        String name = "홍길동";
+        Integer age = 30;
+        String phoneNumber = "010-1234-5678";
+        String password = "Abc123!@#";
+
+        Member member = Member.create(name, age, phoneNumber, password);
 
         MemberUpdateRequest request = new MemberUpdateRequest("김철수", 35, "010-9876-5432");
         given(memberRepository.findById(memberId)).willReturn(java.util.Optional.of(member));
@@ -118,12 +113,12 @@ class MemberServiceTest {
     void deleteMemberTest() {
         // given
         Long memberId = 1L;
-        Member member = Member.builder()
-                .name("홍길동")
-                .age(30)
-                .phoneNumber("010-1234-5678")
-                .password("Abc123!@#")
-                .build();
+        String name = "홍길동";
+        Integer age = 30;
+        String phoneNumber = "010-1234-5678";
+        String password = "Abc123!@#";
+
+        Member member = Member.create(name, age, phoneNumber, password);
 
         given(memberRepository.findById(memberId)).willReturn(java.util.Optional.of(member));
 
