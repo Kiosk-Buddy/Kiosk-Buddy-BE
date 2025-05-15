@@ -32,4 +32,9 @@ public class TestSessionService {
 
         return testSessionRepository.save(testSession).getId();
     }
+
+    public TestSession getTestSession(Long testSessionId) {
+        return testSessionRepository.findWithMemberAndTutorialById(testSessionId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 테스트 기록입나다."));
+    }
 }
