@@ -40,6 +40,14 @@ public class Tutorial extends BaseTimeEntity {
         this.difficultyLevel = difficultyLevel;
     }
 
+    public static Tutorial create(String title, String description, DifficultyLevel difficultyLevel) {
+        return Tutorial.builder()
+                .title(title)
+                .description(description)
+                .difficultyLevel(difficultyLevel)
+                .build();
+    }
+
     public void update(TutorialUpdateRequest request) {
         this.title = request.title();
         this.description = request.description();
