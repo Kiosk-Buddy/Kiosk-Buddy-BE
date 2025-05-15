@@ -30,11 +30,9 @@ com.kioskbuddy.backend
 │   │   └── dto                            ← Request/Response DTO
 │   │       ├── MemberCreateRequest.java
 │   │       └── MemberDetailResponse.java
-│
 │   ├── repository                         ← 외부 기술 연계 (JPA, Redis, Kafka 등)
 │   │   └── jpa
 │   │       └── JpaMemberRepository.java
-│
 │   └── ui                                 ← API Layer (Controller)
 │       └── MemberController.java
 │
