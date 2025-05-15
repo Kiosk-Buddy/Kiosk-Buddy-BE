@@ -17,7 +17,7 @@
 - 사용자 피드백 및 진행 현황 분석
 
 ## 프로젝트 구조
-
+```
 com.kioskbuddy.backend
 ├── member                                 ← 도메인 기준 하위 디렉토리
 │   ├── domain                             ← 순수 도메인 모델
@@ -39,6 +39,7 @@ com.kioskbuddy.backend
 │
 ├── Tutorial                               ← 또 다른 도메인 (같은 구조)
 │   └── ...
+```
 
 # API 명세
 
