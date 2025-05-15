@@ -5,6 +5,7 @@ import com.kioskbuddy.backend.member.domain.Member;
 import com.kioskbuddy.backend.tutorial.domain.Tutorial;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -13,7 +14,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "test_session")
 @NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
-@AllArgsConstructor
 @Getter
 public class TestSession extends BaseTimeEntity {
 
@@ -33,4 +33,19 @@ public class TestSession extends BaseTimeEntity {
     private Integer score;
 
     private LocalDateTime completedAt;
+
+    @Builder
+    private TestSession(Member member, Tutorial tutorial, Integer score) {
+        this.member = member;
+        this.tutorial = tutorial;
+        this.score = score;
+    }
+
+    public static TestSession create(Member member, Tutorial tutorial, Integer score) {
+        return TestSession.builder()
+                .member(member)
+                .tutorial(tutorial)
+                .score(score)
+                .build();
+    }
 }
