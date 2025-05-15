@@ -34,4 +34,10 @@ public class ProgressController {
         progressService.updateProgress(progressId, request);
         return ResponseEntity.noContent().build();
     }
+
+    @DeleteMapping("/{progressId}")
+    public ResponseEntity<Void> deleteProgress(@PathVariable Long progressId) {
+        progressService.deleteProgress(progressId);
+        return ResponseEntity.noContent().build();
+    }
 }

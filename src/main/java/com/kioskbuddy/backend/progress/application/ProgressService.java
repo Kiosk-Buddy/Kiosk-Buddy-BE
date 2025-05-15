@@ -46,4 +46,12 @@ public class ProgressService {
 
         progress.update(request.progressPercentage());
     }
+
+    @Transactional
+    public void deleteProgress(Long progressId) {
+        Progress progress = progressRepository.findById(progressId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 진행도입니다."));
+
+        progressRepository.delete(progress);
+    }
 }
