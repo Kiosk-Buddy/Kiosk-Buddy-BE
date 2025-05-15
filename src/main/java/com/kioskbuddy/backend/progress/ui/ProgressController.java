@@ -30,7 +30,7 @@ public class ProgressController {
     }
 
     @PutMapping("/{progressId}")
-    public ResponseEntity<Void> updateProgress(@PathVariable Long progressId, @RequestBody ProgressUpdateRequest request) {
+    public ResponseEntity<Void> updateProgress(@PathVariable Long progressId, @Valid @RequestBody ProgressUpdateRequest request) {
         progressService.updateProgress(progressId, request);
         return ResponseEntity.noContent().build();
     }
