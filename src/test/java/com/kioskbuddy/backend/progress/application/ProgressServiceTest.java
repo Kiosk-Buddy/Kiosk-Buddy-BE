@@ -3,6 +3,7 @@ package com.kioskbuddy.backend.progress.application;
 import com.kioskbuddy.backend.member.domain.Member;
 import com.kioskbuddy.backend.member.repository.jpa.JpaMemberRepository;
 import com.kioskbuddy.backend.progress.application.dto.ProgressCreateRequest;
+import com.kioskbuddy.backend.progress.application.dto.ProgressUpdateRequest;
 import com.kioskbuddy.backend.progress.domain.Progress;
 import com.kioskbuddy.backend.progress.repository.JpaProgressRepository;
 import com.kioskbuddy.backend.tutorial.domain.DifficultyLevel;
@@ -19,6 +20,8 @@ import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -41,7 +44,7 @@ class ProgressServiceTest {
 
     @Test
     @DisplayName("Progress 정상 등록 - ID 반환 확인")
-    void createProgress_success() {
+    void createProgressTest() {
         // given
         Member member = Member.create("홍길동", 40, "010-1234-5678", "password");
         Tutorial tutorial = Tutorial.create("튜토리얼 제목", "설명", DifficultyLevel.MEDIUM);
@@ -73,5 +76,28 @@ class ProgressServiceTest {
         assertEquals(75.0f, captured.getProgressPercentage());
         assertEquals(member, captured.getMember());
         assertEquals(tutorial, captured.getTutorial());
+    }
+    @Test
+    @DisplayName("진행도 조회 성공")
+    void getProgressTest() {
+        // given
+        Member member = Member.create("홍길동", 30, "010-1111-2222", "pw");
+        Tutorial tutorial = Tutorial.create("타이틀", "설명", DifficultyLevel.EASY);
+        Progress progress = Progress.create(member, tutorial, 0.6f);
+        ReflectionTestUtils.setField(member, "id", 1L);
+        ReflectionTestUtils.setField(tutorial, "id", 2L);
+        ReflectionTestUtils.setField(progress, "id", 3L);
+
+        given(progressRepository.findWithMemberAndTutorialById(3L)).willReturn(Optional.of(progress));
+
+        // when
+        Progress result = progressService.getProgress(3L);
+
+        // then
+        assertThat(result).isNotNull();
+        assertThat(result.getId()).isEqualTo(3L);
+        assertThat(result.getProgressPercentage()).isEqualTo(0.6f);
+        assertThat(result.getMember().getId()).isEqualTo(1L);
+        assertThat(result.getTutorial().getId()).isEqualTo(2L);
     }
 }
