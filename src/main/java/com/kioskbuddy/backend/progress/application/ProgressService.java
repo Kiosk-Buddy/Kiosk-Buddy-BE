@@ -32,4 +32,9 @@ public class ProgressService {
 
         return progressRepository.save(progress).getId();
     }
+
+    public Progress getProgress(Long progressId) {
+        return progressRepository.findWithMemberAndTutorialById(progressId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 진행도입니다."));
+    }
 }
