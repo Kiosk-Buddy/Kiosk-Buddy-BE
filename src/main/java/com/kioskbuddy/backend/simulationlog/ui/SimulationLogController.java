@@ -21,7 +21,7 @@ public class SimulationLogController {
         return ResponseEntity.status(HttpStatus.CREATED).body(simulationLogId);
     }
 
-    @GetMapping("{simulationLogId}")
+    @GetMapping("/{simulationLogId}")
     public ResponseEntity<SimulationLogDetailResponse> getSimulationLogDetailResponse(@PathVariable Long simulationLogId) {
         SimulationLogDetailResponse response = SimulationLogDetailResponse.from(simulationLogService.getSimulationLog(simulationLogId));
         return ResponseEntity.ok(response);

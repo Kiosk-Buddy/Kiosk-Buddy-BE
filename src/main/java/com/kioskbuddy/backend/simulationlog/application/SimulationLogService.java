@@ -20,6 +20,7 @@ public class SimulationLogService {
     private final JpaMemberRepository memberRepository;
     private final JpaTutorialRepository tutorialRepository;
 
+    @Transactional
     public Long createSimulationLog(SimulationLogCreateRequest request) {
         Member member = memberRepository.findById(request.memberId())
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
@@ -33,7 +34,7 @@ public class SimulationLogService {
     }
 
     public SimulationLog getSimulationLog(Long simulationLogId) {
-        return simulationLogRepository.findById(simulationLogId)
+        return simulationLogRepository.findWithMemberAndTutorialById(simulationLogId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 시뮬레이션 기록입니다."));
     }
 }
