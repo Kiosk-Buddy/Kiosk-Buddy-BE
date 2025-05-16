@@ -31,4 +31,9 @@ public class SimulationLogService {
 
         return simulationLogRepository.save(simulationLog).getId();
     }
+
+    public SimulationLog getSimulationLog(Long simulationLogId) {
+        return simulationLogRepository.findById(simulationLogId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 시뮬레이션 기록입니다."));
+    }
 }
