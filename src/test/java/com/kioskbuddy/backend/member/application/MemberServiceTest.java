@@ -3,6 +3,7 @@ package com.kioskbuddy.backend.member.application;
 import com.kioskbuddy.backend.member.application.dto.MemberSignupRequest;
 import com.kioskbuddy.backend.member.application.dto.MemberUpdateRequest;
 import com.kioskbuddy.backend.member.domain.Member;
+import com.kioskbuddy.backend.member.domain.MemberType;
 import com.kioskbuddy.backend.member.repository.jpa.JpaMemberRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -31,8 +32,8 @@ class MemberServiceTest {
     @DisplayName("회원가입 테스트")
     void signupMember_success() {
         // given
-        MemberSignupRequest request = new MemberSignupRequest("홍길동", 30, "010-1234-5678", "Abc123!@#");
-        Member member = Member.create(request.name(), request.age(), request.phoneNumber(), request.password());
+        MemberSignupRequest request = new MemberSignupRequest("홍길동", 30, "010-1234-5678", "Abc123!@#", MemberType.SENIOR);
+        Member member = Member.create(request.name(), request.age(), request.phoneNumber(), request.password(), request.memberType());
 
         ReflectionTestUtils.setField(member, "id", 1L);
 
@@ -52,7 +53,7 @@ class MemberServiceTest {
     @DisplayName("중복 전화번호 예외 테스트")
     void signupMember_duplicatePhoneNumber_throwsException() {
         // given
-        MemberSignupRequest request = new MemberSignupRequest("홍길동", 30, "010-1234-5678", "Abc123!@#");
+        MemberSignupRequest request = new MemberSignupRequest("홍길동", 30, "010-1234-5678", "Abc123!@#", MemberType.SENIOR);
         given(memberRepository.existsByPhoneNumber(request.phoneNumber())).willReturn(true);
         
         // when & then
@@ -70,8 +71,9 @@ class MemberServiceTest {
         Integer age = 30;
         String phoneNumber = "010-1234-5678";
         String password = "Abc123!@#";
+        MemberType memberType = MemberType.SENIOR;
 
-        Member member = Member.create(name, age, phoneNumber, password);
+        Member member = Member.create(name, age, phoneNumber, password, memberType);
 
         // when
         given(memberRepository.findById(memberId)).willReturn(java.util.Optional.of(member));
@@ -92,10 +94,11 @@ class MemberServiceTest {
         Integer age = 30;
         String phoneNumber = "010-1234-5678";
         String password = "Abc123!@#";
+        MemberType memberType = MemberType.SENIOR;
 
-        Member member = Member.create(name, age, phoneNumber, password);
+        Member member = Member.create(name, age, phoneNumber, password, memberType);
 
-        MemberUpdateRequest request = new MemberUpdateRequest("김철수", 35, "010-9876-5432");
+        MemberUpdateRequest request = new MemberUpdateRequest("김철수", 35, "010-9876-5432", MemberType.GENERAL);
         given(memberRepository.findById(memberId)).willReturn(java.util.Optional.of(member));
         
         // when
@@ -117,8 +120,9 @@ class MemberServiceTest {
         Integer age = 30;
         String phoneNumber = "010-1234-5678";
         String password = "Abc123!@#";
+        MemberType memberType = MemberType.SENIOR;
 
-        Member member = Member.create(name, age, phoneNumber, password);
+        Member member = Member.create(name, age, phoneNumber, password, memberType);
 
         given(memberRepository.findById(memberId)).willReturn(java.util.Optional.of(member));
 

@@ -28,20 +28,26 @@ public class Member extends BaseTimeEntity {
 
     private String password;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "member_type")
+    private MemberType memberType;
+
     @Builder
-    private Member(String name, Integer age, String phoneNumber, String password) {
+    private Member(String name, Integer age, String phoneNumber, String password, MemberType memberType) {
         this.name = name;
         this.age = age;
         this.phoneNumber = phoneNumber;
         this.password = password;
+        this.memberType = memberType;
     }
 
-    public static Member create(String name, Integer age, String phoneNumber, String password) {
+    public static Member create(String name, Integer age, String phoneNumber, String password, MemberType memberType) {
         return Member.builder()
                 .name(name)
                 .age(age)
                 .phoneNumber(phoneNumber)
                 .password(password)
+                .memberType(memberType)
                 .build();
     }
 
@@ -49,5 +55,6 @@ public class Member extends BaseTimeEntity {
         this.name = request.name();
         this.age = request.age();
         this.phoneNumber = request.phoneNumber();
+        this.memberType = request.memberType();
     }
 }

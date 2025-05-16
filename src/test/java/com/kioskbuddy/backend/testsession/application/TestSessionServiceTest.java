@@ -1,6 +1,7 @@
 package com.kioskbuddy.backend.testsession.application;
 
 import com.kioskbuddy.backend.member.domain.Member;
+import com.kioskbuddy.backend.member.domain.MemberType;
 import com.kioskbuddy.backend.member.repository.jpa.JpaMemberRepository;
 import com.kioskbuddy.backend.testsession.application.dto.TestSessionCreateRequest;
 import com.kioskbuddy.backend.testsession.domain.TestSession;
@@ -40,7 +41,7 @@ class TestSessionServiceTest {
     @Test
     void createTestSessionTest() {
         // given
-        Member member = Member.create("홍길동", 40, "010-1234-5678", "password");
+        Member member = Member.create("홍길동", 40, "010-1234-5678", "password", MemberType.SENIOR);
         Tutorial tutorial = Tutorial.create("튜토리얼 제목", "설명", DifficultyLevel.MEDIUM);
 
         ReflectionTestUtils.setField(member, "id", 1L);
@@ -48,7 +49,6 @@ class TestSessionServiceTest {
 
         Integer score = 90;
 
-        TestSession testSession = TestSession.create(member, tutorial, score);
         TestSession savedSession = TestSession.create(member, tutorial, score);
         ReflectionTestUtils.setField(savedSession, "id", 10L); // 저장된 ID 설정
 
@@ -74,7 +74,7 @@ class TestSessionServiceTest {
         Long testSessionId = 5L;
         int score = 90;
 
-        Member member = Member.create("홍길동", 40, "010-1234-5678", "password");
+        Member member = Member.create("홍길동", 40, "010-1234-5678", "password", MemberType.SENIOR);
         Tutorial tutorial = Tutorial.create("튜토리얼 제목", "설명", DifficultyLevel.MEDIUM);
 
         ReflectionTestUtils.setField(member, "id", 1L);
