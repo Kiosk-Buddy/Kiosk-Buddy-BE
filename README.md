@@ -17,6 +17,24 @@
 - 시뮬레이터 테스트 결과 기록
 - 사용자 피드백 및 진행 현황 분석
 
+## 🛠 기술 스택
+
+- Java 17 – 주요 로직 구현 언어
+- Spring Boot – 애플리케이션 프레임워크
+- spring-boot-starter-web – RESTful API 및 웹 기능 제공
+- spring-boot-starter-data-jpa – ORM 기반 데이터 액세스 계층 구성 (JPA + Hibernate)
+- spring-boot-starter-validation – 입력값 유효성 검증 처리
+
+🗃 Database
+
+- H2 Database (In-Memory) – 개발 및 테스트용 임베디드 데이터베이스
+
+🧰 개발 도구 및 라이브러리
+
+- Lombok – 반복되는 코드(예: getter/setter, builder 등) 자동 생성
+- JUnit 5 + Spring Boot Test – 단위 테스트 및 통합 테스트 프레임워크
+- Gradle – 빌드 및 의존성 관리
+
 ## 프로젝트 구조
 ```
 com.kioskbuddy.backend
