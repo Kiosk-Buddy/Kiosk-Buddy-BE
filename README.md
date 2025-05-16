@@ -69,9 +69,8 @@ com.kioskbuddy.backend
 ### Progress
 <img width="1508" alt="스크린샷 2025-05-15 오후 7 18 54" src="https://github.com/user-attachments/assets/d7ddf58a-c274-4629-999b-1dfbcd9eb1a8" />
 
-# 테스트 
-
-> JUnit5 + Mockito 기반 단위 테스트 작성
+### TestSession
+<img width="1391" alt="스크린샷 2025-05-16 09 12 53" src="https://github.com/user-attachments/assets/88650823-7091-41d7-b462-d09cf466703a" />
 
 # ERD
 <img width="1311" alt="스크린샷 2025-04-21 18 46 19" src="https://github.com/user-attachments/assets/9b7646cf-2602-4619-a1e2-5a20d53fd9dd" />
