@@ -1,6 +1,7 @@
 package com.kioskbuddy.backend.simulationlog.application;
 
 import com.kioskbuddy.backend.member.domain.Member;
+import com.kioskbuddy.backend.member.domain.MemberType;
 import com.kioskbuddy.backend.member.repository.jpa.JpaMemberRepository;
 import com.kioskbuddy.backend.simulationlog.application.dto.SimulationLogCreateRequest;
 import com.kioskbuddy.backend.simulationlog.domain.SimulationLog;
@@ -45,7 +46,7 @@ class SimulationLogServiceTest {
         Long tutorialId = 10L;
         boolean success = true;
 
-        Member member = Member.create("홍길동", 40, "010-1234-5678", "password");
+        Member member = Member.create("홍길동", 40, "010-1234-5678", "password", MemberType.SENIOR);
         Tutorial tutorial = Tutorial.create("튜토리얼 제목", "설명", DifficultyLevel.MEDIUM);
 
         ReflectionTestUtils.setField(member, "id", 1L);
@@ -72,7 +73,7 @@ class SimulationLogServiceTest {
         // given
         Long simulationLogId = 1L;
 
-        Member member = Member.create("홍길동", 40, "010-1234-5678", "password");
+        Member member = Member.create("홍길동", 40, "010-1234-5678", "password", MemberType.SENIOR);
         Tutorial tutorial = Tutorial.create("튜토리얼 제목", "설명", DifficultyLevel.MEDIUM);
 
         ReflectionTestUtils.setField(member, "id", 1L);

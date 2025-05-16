@@ -1,6 +1,7 @@
 package com.kioskbuddy.backend.progress.application;
 
 import com.kioskbuddy.backend.member.domain.Member;
+import com.kioskbuddy.backend.member.domain.MemberType;
 import com.kioskbuddy.backend.member.repository.jpa.JpaMemberRepository;
 import com.kioskbuddy.backend.progress.application.dto.ProgressCreateRequest;
 import com.kioskbuddy.backend.progress.application.dto.ProgressUpdateRequest;
@@ -46,7 +47,7 @@ class ProgressServiceTest {
     @DisplayName("Progress 정상 등록 - ID 반환 확인")
     void createProgressTest() {
         // given
-        Member member = Member.create("홍길동", 40, "010-1234-5678", "password");
+        Member member = Member.create("홍길동", 40, "010-1234-5678", "password", MemberType.SENIOR);
         Tutorial tutorial = Tutorial.create("튜토리얼 제목", "설명", DifficultyLevel.MEDIUM);
 
         ReflectionTestUtils.setField(member, "id", 1L);
@@ -80,7 +81,7 @@ class ProgressServiceTest {
     @DisplayName("Progress 조회 성공")
     void getProgressTest() {
         // given
-        Member member = Member.create("홍길동", 30, "010-1111-2222", "pw");
+        Member member = Member.create("홍길동", 30, "010-1111-2222", "pw", MemberType.SENIOR);
         Tutorial tutorial = Tutorial.create("타이틀", "설명", DifficultyLevel.EASY);
         ReflectionTestUtils.setField(member, "id", 1L);
         ReflectionTestUtils.setField(tutorial, "id", 2L);
@@ -105,7 +106,7 @@ class ProgressServiceTest {
     @DisplayName("Progress 업데이트 성공")
     void updateProgressTest() {
         // given
-        Member member = Member.create("홍길동", 30, "010-3333-4444", "pw");
+        Member member = Member.create("홍길동", 30, "010-3333-4444", "pw", MemberType.SENIOR);
         Tutorial tutorial = Tutorial.create("튜토", "설명", DifficultyLevel.HARD);
         Progress progress = Progress.create(member, tutorial, 0.3f);
         ReflectionTestUtils.setField(progress, "id", 5L);
@@ -150,7 +151,7 @@ class ProgressServiceTest {
     @DisplayName("Progress 정상 삭제")
     void deleteProgressTest() {
         // given
-        Member member = Member.create("홍길동", 40, "010-1234-5678", "password");
+        Member member = Member.create("홍길동", 40, "010-1234-5678", "password", MemberType.SENIOR);
         Tutorial tutorial = Tutorial.create("튜토리얼 제목", "설명", DifficultyLevel.MEDIUM);
 
         ReflectionTestUtils.setField(member, "id", 1L);
