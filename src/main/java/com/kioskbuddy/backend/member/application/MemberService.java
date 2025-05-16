@@ -1,6 +1,5 @@
 package com.kioskbuddy.backend.member.application;
 
-import com.kioskbuddy.backend.member.application.dto.MemberDetailResponse;
 import com.kioskbuddy.backend.member.application.dto.MemberSignupRequest;
 import com.kioskbuddy.backend.member.application.dto.MemberUpdateRequest;
 import com.kioskbuddy.backend.member.domain.Member;
@@ -22,13 +21,7 @@ public class MemberService {
             throw new IllegalArgumentException("이미 존재하는 전화번호입니다.");
         }
 
-        Member member = Member
-                .builder()
-                .name(request.name())
-                .age(request.age())
-                .phoneNumber(request.phoneNumber())
-                .password(request.password())
-                .build();
+        Member member = Member.create(request.name(), request.age(), request.phoneNumber(), request.password(), request.memberType());
 
         return memberRepository.save(member).getId();
     }
