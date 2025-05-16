@@ -81,7 +81,7 @@ class SimulationLogServiceTest {
         SimulationLog simulationLog = SimulationLog.create(member, tutorial, true);
         ReflectionTestUtils.setField(simulationLog, "id", simulationLogId);
 
-        given(simulationLogRepository.findById(simulationLogId))
+        given(simulationLogRepository.findWithMemberAndTutorialById(simulationLogId))
                 .willReturn(Optional.of(simulationLog));
 
         // when
