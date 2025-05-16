@@ -35,12 +35,14 @@ class MemberTest {
         Integer age = 30;
         String phoneNumber = "010-1234-5678";
         String password = "Abc123!@#";
+
         Member member = Member.create(name, age, phoneNumber, password);
         
         // when
         String newName = "김철수";
         Integer newAge = 35;
         String newPhoneNumber = "010-9876-5432";
+
         member.update(new MemberUpdateRequest(newName, newAge, newPhoneNumber));
         
         // then
