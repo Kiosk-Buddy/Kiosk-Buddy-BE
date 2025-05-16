@@ -66,4 +66,32 @@ class SimulationLogServiceTest {
         // then
         assertEquals(100L, result);
     }
+
+    @Test
+    void getSimulationLogTest() {
+        // given
+        Long simulationLogId = 1L;
+
+        Member member = Member.create("홍길동", 40, "010-1234-5678", "password");
+        Tutorial tutorial = Tutorial.create("튜토리얼 제목", "설명", DifficultyLevel.MEDIUM);
+
+        ReflectionTestUtils.setField(member, "id", 1L);
+        ReflectionTestUtils.setField(tutorial, "id", 1L);
+
+        SimulationLog simulationLog = SimulationLog.create(member, tutorial, true);
+        ReflectionTestUtils.setField(simulationLog, "id", simulationLogId);
+
+        given(simulationLogRepository.findById(simulationLogId))
+                .willReturn(Optional.of(simulationLog));
+
+        // when
+        SimulationLog result = simulationLogService.getSimulationLog(simulationLogId);
+
+        // then
+        assertNotNull(result);
+        assertEquals(simulationLogId, result.getId());
+        assertEquals(member, result.getMember());
+        assertEquals(tutorial, result.getTutorial());
+        assertTrue(result.getIsSuccess());
+    }
 }
