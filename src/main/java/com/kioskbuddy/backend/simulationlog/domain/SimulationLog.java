@@ -5,13 +5,13 @@ import com.kioskbuddy.backend.member.domain.Member;
 import com.kioskbuddy.backend.tutorial.domain.Tutorial;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "simulation_log")
 @NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
-@AllArgsConstructor
 @Getter
 public class SimulationLog extends BaseTimeEntity {
 
@@ -29,4 +29,19 @@ public class SimulationLog extends BaseTimeEntity {
     private Tutorial tutorial;
 
     private Boolean isSuccess;
+
+    @Builder
+    private SimulationLog(Member member, Tutorial tutorial, Boolean isSuccess) {
+        this.member = member;
+        this.tutorial = tutorial;
+        this.isSuccess = isSuccess;
+    }
+
+    public static SimulationLog create(Member member, Tutorial tutorial, Boolean isSuccess) {
+        return SimulationLog.builder()
+                .member(member)
+                .tutorial(tutorial)
+                .isSuccess(isSuccess)
+                .build();
+    }
 }
