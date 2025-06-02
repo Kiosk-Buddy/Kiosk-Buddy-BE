@@ -17,6 +17,9 @@
 - 시뮬레이터 테스트 결과 기록
 - 사용자 피드백 및 진행 현황 분석
 
+## 🛠️ CI/CD 파이프라인 구조
+<img width="1375" alt="스크린샷 2025-06-02 11 07 42" src="https://github.com/user-attachments/assets/61b52c0a-f754-4b3a-8e57-d640f198ef38" />
+
 ## 🛠 기술 스택
 
 - Java 17 – 주요 로직 구현 언어
